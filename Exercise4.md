@@ -11,30 +11,159 @@ output:
 ---
 
 
-```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+
+
+
+```r
+library(tidyverse)     # for data cleaning and plotting
 ```
 
-```{r libraries}
-library(tidyverse)     # for data cleaning and plotting
+```
+## ─ Attaching packages ──────────────────── tidyverse 1.3.1 ─
+```
+
+```
+## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.4     ✓ dplyr   1.0.7
+## ✓ tidyr   1.2.0     ✓ stringr 1.4.0
+## ✓ readr   2.0.1     ✓ forcats 0.5.1
+```
+
+```
+## Warning: 程辑包'tidyr'是用R版本4.1.2 来建造的
+```
+
+```
+## ─ Conflicts ───────────────────── tidyverse_conflicts() ─
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
 library(lubridate)     # for date manipulation
+```
+
+```
+## 
+## 载入程辑包：'lubridate'
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+```
+
+```r
 library(openintro)     # for the abbr2state() function
+```
+
+```
+## Warning: 程辑包'openintro'是用R版本4.1.2 来建造的
+```
+
+```
+## 载入需要的程辑包：airports
+```
+
+```
+## 载入需要的程辑包：cherryblossom
+```
+
+```
+## 载入需要的程辑包：usdata
+```
+
+```r
 library(palmerpenguins)# for Palmer penguin data
 library(maps)          # for map data
+```
+
+```
+## 
+## 载入程辑包：'maps'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     map
+```
+
+```r
 library(ggmap)         # for mapping points on maps
+```
+
+```
+## Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+```
+
+```
+## Please cite ggmap if you use it! See citation("ggmap") for details.
+```
+
+```r
 library(gplots)        # for col2hex() function
+```
+
+```
+## 
+## 载入程辑包：'gplots'
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     lowess
+```
+
+```r
 library(RColorBrewer)  # for color palettes
 library(sf)            # for working with spatial data
+```
+
+```
+## Linking to GEOS 3.8.1, GDAL 3.2.1, PROJ 7.2.1; sf_use_s2() is TRUE
+```
+
+```r
 library(leaflet)       # for highly customizable mapping
 library(carData)       # for Minneapolis police stops data
+```
+
+```
+## Warning: 程辑包'carData'是用R版本4.1.2 来建造的
+```
+
+```r
 library(ggthemes)      # for more themes (including theme_map())
 theme_set(theme_minimal())
 ```
 
-```{r data}
+
+```r
 # Starbucks locations
 Starbucks <- read_csv("https://www.macalester.edu/~ajohns24/Data/Starbucks.csv")
+```
 
+```
+## Rows: 25600 Columns: 13
+```
+
+```
+## ─ Column specification ────────────────────────────
+## Delimiter: ","
+## chr (11): Brand, Store Number, Store Name, Ownership Type, Street Address, C...
+## dbl  (2): Longitude, Latitude
+```
+
+```
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+```r
 starbucks_us_by_state <- Starbucks %>% 
   filter(Country == "US") %>% 
   count(`State/Province`) %>% 
@@ -55,7 +184,24 @@ favorite_stp_by_lisa <- tibble(
 
 #COVID-19 data from the New York Times
 covid19 <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
+```
 
+```
+## Rows: 40494 Columns: 5
+```
+
+```
+## ─ Column specification ────────────────────────────
+## Delimiter: ","
+## chr  (2): state, fips
+## dbl  (2): cases, deaths
+## date (1): date
+```
+
+```
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 
 ## Put your homework on GitHub!
@@ -96,12 +242,52 @@ These exercises will reiterate what you learned in the "Mapping data with R" tut
 
   1. Add the `Starbucks` locations to a world map. Add an aesthetic to the world map that sets the color of the points according to the ownership type. What, if anything, can you deduce from this visualization?
   
-```{r}
+
+```r
 world <- get_stamenmap(
   bbox = c(left = -180, bottom = -57, right = 204, top = 84),
   maptype = "terrain",
   zoom = 2
 )
+```
+
+```
+## Source : http://tile.stamen.com/terrain/2/0/0.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/2/1/0.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/2/2/0.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/2/3/0.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/2/4/0.png
+```
+
+```
+## Not Found (HTTP 404). Failed to aquire tile /terrain/2/4/0.png.
+## Source : http://tile.stamen.com/terrain/2/0/1.png
+## Source : http://tile.stamen.com/terrain/2/1/1.png
+## Source : http://tile.stamen.com/terrain/2/2/1.png
+## Source : http://tile.stamen.com/terrain/2/3/1.png
+## Source : http://tile.stamen.com/terrain/2/4/1.png
+## Not Found (HTTP 404). Failed to aquire tile /terrain/2/4/1.png.
+## Source : http://tile.stamen.com/terrain/2/0/2.png
+## Source : http://tile.stamen.com/terrain/2/1/2.png
+## Source : http://tile.stamen.com/terrain/2/2/2.png
+## Source : http://tile.stamen.com/terrain/2/3/2.png
+## Source : http://tile.stamen.com/terrain/2/4/2.png
+## Not Found (HTTP 404). Failed to aquire tile /terrain/2/4/2.png.
+```
+
+```r
 ggmap(world) +
   geom_point(data = Starbucks, 
             aes(x = Longitude, y = Latitude, color = `Ownership Type`),
@@ -111,15 +297,105 @@ ggmap(world) +
   theme_map() +
   theme(legend.background = element_blank()) 
 ```
+
+```
+## Warning: Removed 1 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
 Most Starbucks in Japan is joint venture, and Starbucks in China are mainly company owned or franchise. Starbucks in North America is not joint venture. Most Starbucks in Europe are on western part. There is no Starbucks in Africa, central and northern Asia, and few in Australia and South America. 
 
   2. Construct a new map of Starbucks locations in the Twin Cities metro area (approximately the 5 county metro area).  
 
-```{r}
+
+```r
 TwinCities <- get_stamenmap(
   bbox = c(left = -93.5806, bottom = 44.7887, right = -92.8321, top = 45.1249),
   zoom = 11
 )
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/491/735.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/492/735.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/493/735.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/494/735.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/495/735.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/491/736.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/492/736.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/493/736.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/494/736.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/495/736.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/491/737.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/492/737.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/493/737.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/494/737.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/495/737.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/491/738.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/492/738.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/493/738.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/494/738.png
+```
+
+```
+## Source : http://tile.stamen.com/terrain/11/495/738.png
+```
+
+```r
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
@@ -129,6 +405,12 @@ ggmap(TwinCities) +
   theme(legend.background = element_blank()) 
 ```
 
+```
+## Warning: Removed 25486 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
 
   3. In the Twin Cities plot, play with the zoom number. What does it do?  (just describe what it does - don't actually include more than one map).  
   
@@ -136,12 +418,96 @@ ggmap(TwinCities) +
 
   4. Try a couple different map types (see `get_stamenmap()` in help and look at `maptype`). Include a map with one of the other map types.  
   
-```{r}
+
+```r
 TwinCities <- get_stamenmap(
   bbox = c(left = -93.5806, bottom = 44.7887, right = -92.8321, top = 45.1249),
   maptype = "toner",
   zoom = 11
 )
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/491/735.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/492/735.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/493/735.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/494/735.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/495/735.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/491/736.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/492/736.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/493/736.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/494/736.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/495/736.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/491/737.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/492/737.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/493/737.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/494/737.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/495/737.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/491/738.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/492/738.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/493/738.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/494/738.png
+```
+
+```
+## Source : http://tile.stamen.com/toner/11/495/738.png
+```
+
+```r
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
@@ -151,9 +517,16 @@ ggmap(TwinCities) +
   theme(legend.background = element_blank()) 
 ```
 
+```
+## Warning: Removed 25486 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
   5. Add a point to the map that indicates Macalester College and label it appropriately. There are many ways you can do think, but I think it's easiest with the `annotate()` function (see `ggplot2` cheatsheet).
   
-```{r}
+
+```r
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
@@ -172,16 +545,42 @@ ggmap(TwinCities) +
   theme(legend.background = element_blank()) 
 ```
 
+```
+## Warning: Removed 25486 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
 ### Choropleth maps with Starbucks data (`geom_map()`)
 
 The example I showed in the tutorial did not account for population of each state in the map. In the code below, a new variable is created, `starbucks_per_10000`, that gives the number of Starbucks per 10,000 people. It is in the `starbucks_with_2018_pop_est` dataset.
 
-```{r}
+
+```r
 census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1") %>% 
   separate(state, into = c("dot","state"), extra = "merge") %>% 
   select(-dot) %>% 
   mutate(state = str_to_lower(state))
+```
 
+```
+## Rows: 51 Columns: 2
+```
+
+```
+## ─ Column specification ────────────────────────────
+## Delimiter: ","
+## chr (1): state
+## dbl (1): est_pop_2018
+```
+
+```
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
+```r
 starbucks_with_2018_pop_est <-
   starbucks_us_by_state %>% 
   left_join(census_pop_est_2018,
@@ -205,7 +604,8 @@ mutate: creates and adds a new variable in the table that computes the number of
 
   7. Create a choropleth map that shows the number of Starbucks per 10,000 people on a map of the US. Use a new fill color, add points for all Starbucks in the US (except Hawaii and Alaska), add an informative title for the plot, and include a caption that says who created the plot (you!). Make a conclusion about what you observe.
 
-```{r, fig.asp = .6}
+
+```r
 state_map <- map_data("state")
 starbucks_with_2018_pop_est %>% 
   ggplot(aes()) +
@@ -229,6 +629,7 @@ starbucks_with_2018_pop_est %>%
         plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
 
+![](Exercise4_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 The number of Starbucks per 10,000 people is higher on the West Coast, which the color is darker. The distribution is similar on the East coast, but the number of Starbucks per 10,000 people is much lower than the east coast. Central US has relatively lower distribution of Starbucks, as the result, the number of Starbucks per 10,000 people is also lower than the West Coast, but similar with the East Coast. 
 
 ### A few of your favorite things (`leaflet`)
@@ -242,39 +643,6 @@ The number of Starbucks per 10,000 people is higher on the West Coast, which the
   * Connect all your locations together with a line in a meaningful way (you may need to order them differently in the original data).  
   
   * If there are other variables you want to add that could enhance your plot, do that now.  
-  
-```{r}
-favorite_place <- tibble(
-  place = c("Home", "Forbiden City", "Hu Da", "Wangfujing", "CBD", "Tongheju", "Sanlitun", "Yonghegong", "Haidilao", "Chaoyang Dayuecheng"), 
-  long = c(116.3799431, 116.3884302, 116.3621655, 116.4091913, 116.4583833, 116.3526585, 116.4510416, 116.4151015,116.3030231,116.5161446),
-  lat = c(40.0085367, 39.9167136, 39.9167903, 39.9112741, 39.9102981, 39.9138851, 39.9358941, 39.9476753,39.921649,39.923893),
-  top3 = c(T, T, T,
-           T, T, T,
-           F, T, T, F)
-)
-
-pal <- colorFactor("viridis",
-                   domain = favorite_place$top3)
-
-leaflet(data = favorite_place) %>% 
-  addTiles() %>% 
-  addPolylines(lng = ~long, 
-               lat = ~lat, 
-               label = ~place,
-               weight = 2, 
-               opacity = .5, 
-               color = "darkred") %>% 
-  addCircles(lng = ~long, 
-             lat = ~lat, 
-             label = ~place, 
-             weight = 10, 
-             opacity = 1, 
-             color = ~pal(top3)) %>% 
-  addLegend(position = "bottomright", 
-            pal = place1,
-            values = ~top3)
-```
-  
   
 ## Revisiting old datasets
 
@@ -291,26 +659,115 @@ Two data tables are available:
 
 Here is the code to read in the data. We do this a little differently than usualy, which is why it is included here rather than at the top of this file. To avoid repeatedly re-reading the files, start the data import chunk with `{r cache = TRUE}` rather than the usual `{r}`. This code reads in the large dataset right away.
 
-```{r cache=TRUE}
+
+```r
 data_site <- 
   "https://www.macalester.edu/~dshuman1/data/112/2014-Q4-Trips-History-Data.rds" 
 Trips <- readRDS(gzcon(url(data_site)))
 Stations<-read_csv("http://www.macalester.edu/~dshuman1/data/112/DC-Stations.csv")
 ```
 
+```
+## Rows: 347 Columns: 5
+```
+
+```
+## ─ Column specification ────────────────────────────
+## Delimiter: ","
+## chr (1): name
+## dbl (4): lat, long, nbBikes, nbEmptyDocks
+```
+
+```
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+
   9. Use the latitude and longitude variables in `Stations` to make a visualization of the total number of departures from each station in the `Trips` data. Use either color or size to show the variation in number of departures. This time, plot the points on top of a map. Use any of the mapping tools you'd like.
   
-```{r}
+
+```r
 departure_station <- Trips %>% 
   left_join(Stations, by = c("sstation" = "name")) %>% 
   group_by(lat, long) %>% 
   summarize(n = n(), 
             prop_casual = mean(client == "Casual"))
+```
+
+```
+## `summarise()` has grouped output by 'lat'. You can override using the `.groups` argument.
+```
+
+```r
 dc_map <- get_stamenmap(
   bbox = c(left = -77.2000, bottom = 38.7128, right = -76.5550, top = 39.0826),
   maptype = "toner-background",
   zoom = 11
 )
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/584/782.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/585/782.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/586/782.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/587/782.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/588/782.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/584/783.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/585/783.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/586/783.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/587/783.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/588/783.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/584/784.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/585/784.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/586/784.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/587/784.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/588/784.png
+```
+
+```r
 ggmap(dc_map) +
   geom_point(data = departure_station, 
              aes(x = long, y = lat, color = n),
@@ -319,15 +776,33 @@ ggmap(dc_map) +
   theme_map() +
   theme(legend.background = element_blank())
 ```
+
+```
+## Warning: Removed 21 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
   
   10. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? Also plot this on top of a map. I think it will be more clear what the patterns are.
   
-```{r}
+
+```r
 zoom_dc_map <- get_stamenmap(
   bbox = c(left = -77.1436, bottom = 38.6791, right = -76.9324, top = 39.0100),
   maptype = "toner-background",
   zoom = 11
 ) 
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/585/785.png
+```
+
+```
+## Source : http://tile.stamen.com/toner-background/11/586/785.png
+```
+
+```r
 ggmap(zoom_dc_map) +
   geom_point(data = departure_station,
              aes(x = long, y = lat, color = prop_casual),
@@ -342,6 +817,12 @@ ggmap(zoom_dc_map) +
         legend.direction = "horizontal",
         plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
+
+```
+## Warning: Removed 23 rows containing missing values (geom_point).
+```
+
+![](Exercise4_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
   
 ### COVID-19 data
 
@@ -349,53 +830,7 @@ The following exercises will use the COVID-19 data from the NYT.
 
   11. Create a map that colors the states by the most recent cumulative number of COVID-19 cases (remember, these data report cumulative numbers so you don't need to compute that). Describe what you see. What is the problem with this map?
   
-```{r, fig.asp = .6}
-state_map <- map_data("state")
-covid19 %>% 
-  group_by(state) %>% 
-  summarize(rec_cases = max(cases)) %>% 
-  mutate(state = str_to_lower(state)) %>% 
-  ggplot() +
-  geom_map(map = state_map, 
-           aes(map_id = state,
-               fill = rec_cases)) +
-  expand_limits(x = state_map$long, y = state_map$lat) +
-  scale_fill_gradient2() +
-  labs(title = "Number of COVID-19 Cases in Each States",
-       fill = "Covid cases",
-       caption = "Viz by @lisalendway") +
-  theme_map() +
-  theme(legend.background = element_blank(), 
-        plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
-```
-  
-  California has the most COVID cases and northern part of the US seems to have less cases then other states. The problem of this map is that each states have different population, which will affect the number of cases. In this graph, it didn't consider the density of cases.
-  
   12. Now add the population of each state to the dataset and color the states by most recent cumulative cases/10,000 people. See the code for doing this with the Starbucks data. You will need to make some modifications. 
-  
-```{r}
-state_map <- map_data("state")
-covid19 %>% 
-  group_by(state) %>% 
-  summarize(rec_cases = max(cases)) %>% 
-  mutate(state = str_to_lower(state)) %>% 
-  left_join(census_pop_est_2018,
-            by = c("state" = "state")) %>% 
-  mutate(rec_cases_per_10000 = (rec_cases/est_pop_2018)*10000) %>% 
-  ggplot() +
-  geom_map(map = state_map, 
-           aes(map_id = state,
-               fill = rec_cases_per_10000)) +
-  expand_limits(x = state_map$long, y = state_map$lat) +
-  scale_fill_gradient2() +
-  labs(title = "Number of COVID-19 Cases per 10,000 people in Each States",
-       fill = "Covid cases",
-       caption = "Viz by @lisalendway") +
-  theme_map() +
-  theme(legend.background = element_blank(), 
-        plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
-```
-  
   
   13. **CHALLENGE** Choose 4 dates spread over the time period of the data and create the same map as in exercise 12 for each of the dates. Display the four graphs together using faceting. What do you notice?
   
@@ -409,7 +844,8 @@ These exercises use the datasets `MplsStops` and `MplsDemo` from the `carData` l
   
   16. Save the folder from moodle called Minneapolis_Neighborhoods into your project/repository folder for this assignment. Make sure the folder is called Minneapolis_Neighborhoods. Use the code below to read in the data and make sure to **delete the `eval=FALSE`**. Although it looks like it only links to the .sph file, you need the entire folder of files to create the `mpls_nbhd` data set. These data contain information about the geometries of the Minneapolis neighborhoods. Using the `mpls_nbhd` dataset as the base file, join the `mpls_suspicious` and `MplsDemo` datasets to it by neighborhood (careful, they are named different things in the different files). Call this new dataset `mpls_all`.
 
-```{r, eval=FALSE}
+
+```r
 mpls_nbhd <- st_read("Minneapolis_Neighborhoods/Minneapolis_Neighborhoods.shp", quiet = TRUE)
 ```
 
