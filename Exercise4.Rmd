@@ -93,8 +93,13 @@ ggmap(world) +
             size = .1, 
             alpha = 0.5) +
   scale_color_viridis_d() +
+  labs(title = "Starbucks Location") +
   theme_map() +
-  theme(legend.background = element_blank()) 
+  theme(legend.background = element_blank(),
+        legend.justification = "center",
+        legend.position = "bottom",
+        legend.direction = "horizontal",
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
 Most Starbucks in Japan is joint venture, and Starbucks in China are mainly company owned or franchise. Starbucks in North America is not joint venture. Most Starbucks in Europe are on western part. There is no Starbucks in Africa, central and northern Asia, and few in Australia and South America. 
 
@@ -103,12 +108,13 @@ Most Starbucks in Japan is joint venture, and Starbucks in China are mainly comp
 ```{r}
 TwinCities <- get_stamenmap(
   bbox = c(left = -93.5806, bottom = 44.7887, right = -92.8321, top = 45.1249),
+  maptype = "toner",
   zoom = 11
 )
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
-             size = .5,
+             size = .8,
              color = "firebrick")+
   theme_map() +
   theme(legend.background = element_blank()) 
@@ -130,7 +136,7 @@ TwinCities <- get_stamenmap(
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
-             size = .5,
+             size =.8,
              color = "firebrick") +
   theme_map() +
   theme(legend.background = element_blank()) 
@@ -142,7 +148,7 @@ ggmap(TwinCities) +
 ggmap(TwinCities) +
   geom_point(data = Starbucks, 
              aes(x = Longitude, y = Latitude),
-             size = .5,
+             size = .8,
              color = "firebrick") +
   annotate(geom = "point",
            x = -93.1810,
@@ -233,12 +239,12 @@ favorite_place <- tibble(
   place = c("Home", "Forbiden City", "Hu Da", "Wangfujing", "CBD", "Tongheju", "Sanlitun", "Yonghegong", "Haidilao", "Chaoyang Dayuecheng"), 
   long = c(116.3799431, 116.3884302, 116.3621655, 116.4091913, 116.4583833, 116.3526585, 116.4510416, 116.4151015,116.3030231,116.5161446),
   lat = c(40.0085367, 39.9167136, 39.9167903, 39.9112741, 39.9102981, 39.9138851, 39.9358941, 39.9476753,39.921649,39.923893),
-  top3 = c(T, T, T,
-           T, T, T,
-           F, T, T, F)
+  top3 = c("yes", "yes", "yes",
+           "no", "yes", "yes",
+           "no", "yes", "yes", "no")
 )
 
-pal <- colorFactor("viridis",
+pal <- colorFactor(c("darkorchid4", "goldenrod1"),
                    domain = favorite_place$top3)
 
 leaflet(data = favorite_place) %>% 
@@ -310,12 +316,13 @@ ggmap(dc_map) +
 ```{r}
 zoom_dc_map <- get_stamenmap(
   bbox = c(left = -77.1436, bottom = 38.6791, right = -76.9324, top = 39.0100),
-  maptype = "toner-background",
-  zoom = 11
+  maptype = "terrain-background",
+  zoom = 10
 ) 
 ggmap(zoom_dc_map) +
   geom_point(data = departure_station,
              aes(x = long, y = lat, color = prop_casual),
+             size = 1.5,
              alpha = .8, shape = 18) +
   scale_color_viridis_c() +
   labs(title = "Proportion of Casual Client Riders by Station", 
@@ -327,6 +334,8 @@ ggmap(zoom_dc_map) +
         legend.direction = "horizontal",
         plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
+  
+  The stations along the river has a higher proportion of casual client riders, and more stations are at the northern side of the river.
   
 ### COVID-19 data
 
