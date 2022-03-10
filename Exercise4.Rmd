@@ -210,9 +210,10 @@ starbucks_with_2018_pop_est %>%
                aes(x = Longitude, y = Latitude),
              size = .3,
              alpha = .4,
-             color = "gold1") +
+             color = "darkblue") +
   expand_limits(x = state_map$long, y = state_map$lat) + 
-  scale_fill_viridis_c(option = "D") +
+  scale_fill_viridis_c(option = "D",
+                       direction = -1) +
   labs(title = "Starbucks Most Popular on the West Coast",
        caption = "Viz by @lisalendway",
        fill = "Starbucks per 10000 People") +
@@ -364,7 +365,7 @@ covid19 %>%
            aes(map_id = state,
                fill = rec_cases)) +
   expand_limits(x = state_map$long, y = state_map$lat) +
-  scale_fill_distiller(palette = "Spectral") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
   labs(title = "Number of COVID-19 Cases in Each States",
        fill = "Covid cases",
        caption = "Viz by @lisalendway") +
@@ -391,7 +392,7 @@ covid19 %>%
            aes(map_id = state,
                fill = rec_cases_per_10000)) +
   expand_limits(x = state_map$long, y = state_map$lat) +
-  scale_fill_distiller(palette = "Spectral") +
+  scale_fill_distiller(palette = "Greens", direction = 1) +
   labs(title = "Number of COVID-19 Cases per 10,000 people in Each States",
        fill = "Covid cases",
        caption = "Viz by @lisalendway") +
@@ -451,7 +452,8 @@ mpls_all <- mpls_nbhd %>%
             by = c("BDNAME" = "neighborhood"))
 
 mpls_pal <- colorFactor("viridis", 
-                        domain = mpls_all$prop)
+                        domain = mpls_all$prop, 
+                        reverse = TRUE)
 leaflet(mpls_all) %>% 
   addProviderTiles(providers$Stamen.TonerLite) %>% 
   addPolygons(fillOpacity = .7,
@@ -467,7 +469,7 @@ leaflet(mpls_all) %>%
             position = "bottomright")
 ```
   
-  The light yellow area represents a higher proportion of stops was for suspicious vehicles. In this graph, it seems the south eastern part of Minneapolis has a higher proportion than other area, and north eastern seems to have a relatively lower proportion than other area.
+  The darker area represents a higher proportion of stops was for suspicious vehicles, which I used reverse in the filled color. In this graph, it seems the south eastern part of Minneapolis has a higher proportion than other area, and north eastern seems to have a relatively lower proportion than other area.
   
   18. Use `leaflet` to create a map of your own choosing. Come up with a question you want to try to answer and use the map to help answer that question. Describe what your map shows. 
   
