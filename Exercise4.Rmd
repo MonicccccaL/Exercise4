@@ -101,6 +101,7 @@ ggmap(world) +
         legend.direction = "horizontal",
         plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
+
 Most Starbucks in Japan is joint venture, and Starbucks in China are mainly company owned or franchise. Starbucks in North America is not joint venture. Most Starbucks in Europe are on western part. There is no Starbucks in Africa, central and northern Asia, and few in Australia and South America. 
 
   2. Construct a new map of Starbucks locations in the Twin Cities metro area (approximately the 5 county metro area).  
@@ -217,6 +218,9 @@ starbucks_with_2018_pop_est %>%
        fill = "Starbucks per 10000 People") +
   theme_map() +
   theme(legend.background = element_blank(), 
+        legend.justification = "center",
+        legend.position = "bottom",
+        legend.direction = "horizontal",
         plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
 
@@ -239,9 +243,9 @@ favorite_place <- tibble(
   place = c("Home", "Forbiden City", "Hu Da", "Wangfujing", "CBD", "Tongheju", "Sanlitun", "Yonghegong", "Haidilao", "Chaoyang Dayuecheng"), 
   long = c(116.3799431, 116.3884302, 116.3621655, 116.4091913, 116.4583833, 116.3526585, 116.4510416, 116.4151015,116.3030231,116.5161446),
   lat = c(40.0085367, 39.9167136, 39.9167903, 39.9112741, 39.9102981, 39.9138851, 39.9358941, 39.9476753,39.921649,39.923893),
-  top3 = c("yes", "yes", "yes",
-           "no", "yes", "yes",
-           "no", "yes", "yes", "no")
+  top3 = c("yes", "no", "yes",
+           "no", "no", "no",
+           "no", "yes", "no", "no")
 )
 
 pal <- colorFactor(c("darkorchid4", "goldenrod1"),
@@ -307,8 +311,14 @@ ggmap(dc_map) +
              aes(x = long, y = lat, color = n),
              alpha = .8, shape = 18) +
   scale_color_viridis_c() +
+  labs(title = "Number of Departures of each Station", 
+       color = "Number of Departures") +
   theme_map() +
-  theme(legend.background = element_blank())
+  theme(legend.background = element_blank(),
+        legend.justification = "center",
+        legend.position = "bottom",
+        legend.direction = "horizontal",
+        plot.title = element_text(hjust = 0.5, face = "bold", size = 14))
 ```
   
   10. Only 14.4% of the trips in our data are carried out by casual users. Create a plot that shows which area(s) have stations with a much higher percentage of departures by casual users. What patterns do you notice? Also plot this on top of a map. I think it will be more clear what the patterns are.
@@ -325,8 +335,8 @@ ggmap(zoom_dc_map) +
              size = 1.5,
              alpha = .8, shape = 18) +
   scale_color_viridis_c() +
-  labs(title = "Proportion of Casual Client Riders by Station", 
-       color = "") +
+  labs(title = "Proportion of Departures by Casual Client Riders by Station", 
+       color = "Proportion of Casual Riders") +
   theme_map() +
   theme(legend.background = element_blank(),
         legend.justification = "center",
